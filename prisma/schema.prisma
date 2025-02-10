@@ -20,16 +20,16 @@ model Vehicle {
   model                  String
   year                   Int
   price                  Float
-  range_km               Float
+  range_km               Int
   color                  String
   condition              String
-  battery_capacity_kWh   Float
-  charging_speed_kW      Float
+  battery_capacity_kWh   Int
+  charging_speed_kW      Int
   seats                  Int
   drivetrain             String
   location               String
   autopilot              Boolean
-  kilometer_count        String
+  kilometer_count        Int
   accidents              Boolean
   accident_description   String?
   images                 String[]  // Prisma supports arrays for PostgreSQL
