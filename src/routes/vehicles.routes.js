@@ -10,12 +10,12 @@ router.get('/', vehiclesController.getAllVehicles);
 router.get('/search', vehiclesController.searchVehicles);
 
 // CREATE a new vehicle
-router.post('/', vehiclesController.createVehicles);
+router.post('/', vehiclesController.createVehicle);
 
 // UPDATE a vehicle
-router.put('/:id', vehiclesController.updateVehicles);
+router.put('/:id', vehiclesController.updateVehicle);
 
 // DELETE a vehicle
-router.delete('/:id', vehiclesController.deleteVehicles);
+router.delete('/:id', vehiclesController.deleteVehicle);
 
 module.exports = router;
