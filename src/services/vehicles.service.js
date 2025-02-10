@@ -1,10 +1,13 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+
+// GET all vehicles
 const getAllVehicles = async () => {
     return await prisma.vehicle.findMany();
 };
 
+// Search vehicles
 const searchVehicles = async (query, brand, minPrice, maxPrice) => {
     return await prisma.vehicle.findMany({
         where: {
@@ -21,4 +24,26 @@ const searchVehicles = async (query, brand, minPrice, maxPrice) => {
     });
 };
 
-module.exports = { getAllVehicles, searchVehicles };
+// CREATE a new vehicle
+const createVehicle = async (vehicleData) => {
+    return await prisma.vehicle.create({
+        data: vehicleData,
+    });
+};
+// UPDATE a vehicle
+const updateVehicle = async (id, vehicleData) => {
+    return await prisma.vehicle.update({
+        where: { id },
+        data: vehicleData,
+    });
+};
+
+// DELETE a vehicle
+const deleteVehicle = async (id) => {
+    return await prisma.vehicle.delete({
+        where: { id },
+    });
+};
+
+
+module.exports = { getAllVehicles, searchVehicles, createVehicle, updateVehicle, deleteVehicle };
