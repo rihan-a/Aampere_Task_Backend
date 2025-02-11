@@ -9,6 +9,9 @@ router.get('/', vehiclesController.getAllVehicles);
 // Search vehicles
 router.get('/search', vehiclesController.searchVehicles);
 
+// GET a vehicle by ID
+router.get('/:id', vehiclesController.getVehicleByID);
+
 // CREATE a new vehicle
 router.post('/', vehiclesController.createVehicle);
 
