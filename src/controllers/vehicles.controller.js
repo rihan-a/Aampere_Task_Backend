@@ -1,15 +1,18 @@
 const vehiclesService = require('../services/vehicles.service');
 
 
-// GET all vehicles
+// GET vehicles with pagination
 const getAllVehicles = async (req, res) => {
     try {
-        const cars = await vehiclesService.getAllVehicles();
-        res.json(cars);
+        const { limit = 12, offset = 0 } = req.query;
+        const result = await vehiclesService.getAllVehicles(parseInt(limit), parseInt(offset));
+        res.json(result);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
+
 
 // Search vehicles
 const searchVehicles = async (req, res) => {
