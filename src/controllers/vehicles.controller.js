@@ -24,6 +24,16 @@ const searchVehicles = async (req, res) => {
     }
 };
 
+// GET a vehicle by ID
+const getVehicleByID = async (req, res) => {
+    try {
+        const vehicle = await vehiclesService.getVehicleById(req.params.id);
+        res.json(vehicle);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 // CREATE a new vehicle
 const createVehicle = async (req, res) => {
     try {
@@ -57,4 +67,4 @@ const deleteVehicle = async (req, res) => {
 
 
 
-module.exports = { getAllVehicles, searchVehicles, createVehicle, updateVehicle, deleteVehicle };
+module.exports = { getAllVehicles, searchVehicles, getVehicleByID, createVehicle, updateVehicle, deleteVehicle };
