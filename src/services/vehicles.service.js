@@ -65,6 +65,15 @@ const searchVehicles = async (query, brand, minPrice, maxPrice, limit, offset) =
     };
 };
 
+// get a vehicle by ID
+const getVehicleById = async (id, vehicleData) => {
+    return await prisma.vehicle.findUnique({
+        where: { id },
+        data: vehicleData,
+    });
+};
+
+
 // CREATE a new vehicle
 const createVehicle = async (vehicleData) => {
     return await prisma.vehicle.create({
@@ -87,4 +96,4 @@ const deleteVehicle = async (id) => {
 };
 
 
-module.exports = { getAllVehicles, searchVehicles, createVehicle, updateVehicle, deleteVehicle };
+module.exports = { getAllVehicles, searchVehicles, getVehicleById, createVehicle, updateVehicle, deleteVehicle };
