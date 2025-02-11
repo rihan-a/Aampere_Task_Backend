@@ -13,12 +13,11 @@ const getAllVehicles = async (req, res) => {
 };
 
 
-
-// Search vehicles
+// Search vehicles with pagination
 const searchVehicles = async (req, res) => {
     try {
-        const { q, brand, minPrice, maxPrice } = req.query;
-        const cars = await vehiclesService.searchVehicles(q, brand, minPrice, maxPrice);
+        const { q, brand, minPrice, maxPrice, limit = 12, offset = 0 } = req.query;
+        const cars = await vehiclesService.searchVehicles(q, brand, minPrice, maxPrice, parseInt(limit), parseInt(offset));
         res.json(cars);
     } catch (error) {
         res.status(500).json({ error: error.message });
