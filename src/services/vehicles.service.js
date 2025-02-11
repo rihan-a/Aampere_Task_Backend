@@ -2,9 +2,24 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 
-// GET all vehicles
-const getAllVehicles = async () => {
-    return await prisma.vehicle.findMany();
+// GET vehicles with pagination 
+const getAllVehicles = async (limit, offset) => {
+    const [vehicles, total] = await Promise.all([
+        prisma.vehicle.findMany({
+            skip: offset,
+            take: limit,
+        }),
+        prisma.vehicle.count(), // Get the total number of vehicles
+    ]);
+
+    return {
+        data: vehicles,
+        pagination: {
+            total,
+            limit,
+            offset,
+        },
+    };
 };
 
 // Search vehicles
