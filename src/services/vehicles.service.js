@@ -22,21 +22,47 @@ const getAllVehicles = async (limit, offset) => {
     };
 };
 
-// Search vehicles
-const searchVehicles = async (query, brand, minPrice, maxPrice) => {
-    return await prisma.vehicle.findMany({
-        where: {
-            OR: [
-                { brand: { contains: query, mode: 'insensitive' } },
-                { model: { contains: query, mode: 'insensitive' } },
-            ],
-            brand: brand ? { contains: brand, mode: 'insensitive' } : undefined,
-            price: {
-                gte: minPrice ? parseFloat(minPrice) : undefined,
-                lte: maxPrice ? parseFloat(maxPrice) : undefined,
+// Search vehicles with pagination
+const searchVehicles = async (query, brand, minPrice, maxPrice, limit, offset) => {
+    const [vehicles, total] = await Promise.all([
+        prisma.vehicle.findMany({
+            where: {
+                OR: [
+                    { brand: { contains: query, mode: 'insensitive' } },
+                    { model: { contains: query, mode: 'insensitive' } },
+                ],
+                brand: brand ? { contains: brand, mode: 'insensitive' } : undefined,
+                price: {
+                    gte: minPrice ? parseFloat(minPrice) : undefined,
+                    lte: maxPrice ? parseFloat(maxPrice) : undefined,
+                },
             },
+            skip: offset,
+            take: limit,
+        }),
+        prisma.vehicle.count({
+            where: {
+                OR: [
+                    { brand: { contains: query, mode: 'insensitive' } },
+                    { model: { contains: query, mode: 'insensitive' } },
+                ],
+                brand: brand ? { contains: brand, mode: 'insensitive' } : undefined,
+                price: {
+                    gte: minPrice ? parseFloat(minPrice) : undefined,
+                    lte: maxPrice ? parseFloat(maxPrice) : undefined,
+                },
+            },
+        }),
+    ]);
+
+    return {
+        data: vehicles,
+        pagination: {
+            total,
+            limit,
+            offset,
         },
-    });
+    };
 };
 
 // CREATE a new vehicle
