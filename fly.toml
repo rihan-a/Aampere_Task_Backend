@@ -7,7 +7,6 @@ kill_timeout = 5
 # Environment variables
 [env]
   PORT = "3005"
-  DATABASE_URL = "postgresql://neondb_owner:npg_YfeoJ6X9xuvl@ep-floral-unit-a2pyb06c-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
 
 # Build configuration using Heroku's buildpacks
 [build]
